@@ -33,6 +33,7 @@ int main(void) {
         sleep(1);
         tq_stop("seconds");
 
+        /* For nesting. */
         tq_start("Outer");
         for (int i = 0; i < 3; ++i) {
                 tq_start("Inner");
