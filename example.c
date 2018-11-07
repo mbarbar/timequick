@@ -9,9 +9,28 @@
 #include "timequick.h"
 
 int main(void) {
+        tq_start(NULL);
+        sleep(1);
+        tq_stop("default");
+
+        tq_set_resolution(tq_MILLISECONDS);
+        tq_start(NULL);
+        sleep(1);
+        tq_stop("milliseconds");
+
+        tq_set_resolution(tq_MICROSECONDS);
+        tq_start(NULL);
+        sleep(1);
+        tq_stop("microseconds");
+
+        tq_set_resolution(tq_NANOSECONDS);
+        tq_start(NULL);
+        sleep(1);
+        tq_stop("nanoseconds");
+
         tq_set_resolution(tq_SECONDS);
         tq_start(NULL);
         sleep(1);
-        tq_stop("not null");
+        tq_stop("seconds");
 }
 
