@@ -35,8 +35,10 @@ struct tq_node {
 /* Starting time when not nesting. */
 static struct timespec tq_start_time = {0, 0};
 
+#if NEST
 /* Nesting stack. */
 static struct tq_node *tq_stack = NULL;
+#endif  /* #if NEST */
 
 static enum tq_resolution tq_output_resolution = tq_SECONDS;
 
