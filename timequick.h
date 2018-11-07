@@ -18,8 +18,8 @@
  */
 #define NEST 1
 
-/* Time resolution when printing. */
-enum tq_resolution {
+/* Time unit when printing. */
+enum tq_unit {
         tq_SECONDS,
         tq_MILLISECONDS,
         tq_MICROSECONDS,
@@ -40,13 +40,13 @@ static struct timespec tq_start_time = {0, 0};
 static struct tq_node *tq_stack = NULL;
 #endif  /* #if NEST */
 
-static enum tq_resolution tq_output_resolution = tq_SECONDS;
+static enum tq_unit tq_output_unit = tq_SECONDS;
 
-/* Set the time resolution for printing. Only affects output.
+/* Set the time unit for printing. Only affects output, not resolution.
    Set to "seconds" by default.
  */
-static void tq_set_resolution(enum tq_resolution resolution) {
-        tq_output_resolution = resolution;
+static void tq_set_unit(enum tq_unit unit) {
+        tq_output_unit = unit;
 }
 
 /* Start timing. The next tq_stop will match the latest tq_start, like
@@ -70,7 +70,7 @@ static void tq_start(char *msg) {
 static void tq_stop(char *msg) {
         static struct timespec end_time;
         static double elapsed_time;
-        static char *units = "s";
+        static char *unit = "s";
 
         /* If nesting, pop the stack, and put the start time into
            the global.
@@ -90,26 +90,26 @@ static void tq_stop(char *msg) {
                        + (end_time.tv_sec - tq_start_time.tv_sec)
                          * 1000000000;
 
-        switch (tq_output_resolution) {
+        switch (tq_output_unit) {
         case tq_SECONDS:
-                units = "s";
+                unit = "s";
                 elapsed_time /= 1000000000;
                 break;
         case tq_MILLISECONDS:
-                units = "ms";
+                unit = "ms";
                 elapsed_time /= 1000000;
                 break;
         case tq_MICROSECONDS:
-                units = "us";
+                unit = "us";
                 elapsed_time /= 1000;
                 break;
         case tq_NANOSECONDS:
-                units = "ns";
+                unit = "ns";
                 break;
                 /* elapsed_time is already sorted. */
         }
 
-        printf("%s: %f%s\n", msg, elapsed_time, units);
+        printf("%s: %f%s\n", msg, elapsed_time, unit);
 }
 
 #endif  /* #ifndef TIMEQUICK_H */
