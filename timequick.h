@@ -17,10 +17,13 @@ enum tq_resolution {
 };
 
 static struct timespec tq_start_time;
+static enum tq_resolution tq_output_resolution = tq_SECONDS;
 
-/* Set the time resolution for printing. Only affects output. */
+/* Set the time resolution for printing. Only affects output.
+   Set to "seconds" by default.
+ */
 static void tq_set_resolution(enum tq_resolution resolution) {
-
+        tq_output_resolution = resolution;
 }
 
 /* Start timing. */
@@ -31,13 +34,34 @@ static void tq_start(char *msg) {
 /* Stop timing, and print the time since the last tq_start. */
 static void tq_stop(char *msg) {
         static struct timespec tq_end_time;
-        static long elapsed_s, elapsed_ns;
+        static double elapsed_time;
+        static char *units = "s";
 
         clock_gettime(CLOCK_REALTIME, &tq_end_time);
-        elapsed_s = tq_end_time.tv_sec - tq_start_time.tv_sec;
-        elapsed_ns = tq_end_time.tv_nsec - tq_start_time.tv_nsec;
+        elapsed_time = (tq_end_time.tv_nsec - tq_start_time.tv_nsec)
+                       + (tq_end_time.tv_sec - tq_start_time.tv_sec)
+                         * 1000000000;
 
-        printf("%s: %lds %ldns\n", msg, elapsed_s, elapsed_ns);
+        switch (tq_output_resolution) {
+        case tq_SECONDS:
+                units = "s";
+                elapsed_time /= 1000000000;
+                break;
+        case tq_MILLISECONDS:
+                units = "ms";
+                elapsed_time /= 1000000;
+                break;
+        case tq_MICROSECONDS:
+                units = "us";
+                elapsed_time /= 1000;
+                break;
+        case tq_NANOSECONDS:
+                units = "ns";
+                break;
+                /* elapsed_time is already sorted. */
+        }
+
+        printf("%s: %f%s\n", msg, elapsed_time, units);
 }
 
 #endif
