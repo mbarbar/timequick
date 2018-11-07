@@ -32,9 +32,12 @@ struct tq_node {
         struct tq_node *next;
 };
 
+/* Starting time when not nesting. */
 static struct timespec tq_start_time = {0, 0};
+
 /* Nesting stack. */
 static struct tq_node *tq_stack = NULL;
+
 static enum tq_resolution tq_output_resolution = tq_SECONDS;
 
 /* Set the time resolution for printing. Only affects output.
@@ -44,7 +47,9 @@ static void tq_set_resolution(enum tq_resolution resolution) {
         tq_output_resolution = resolution;
 }
 
-/* Start timing. */
+/* Start timing. The next tq_stop will match the latest tq_start, like
+   matching parentheses. msg is ignored, and only for user's readability.
+ */
 static void tq_start(char *msg) {
 #if NEST
         struct tq_node *new_node = malloc(sizeof(struct tq_node));
@@ -56,10 +61,10 @@ static void tq_start(char *msg) {
         tq_stack = new_node;
 #else
         clock_gettime(CLOCK_REALTIME, &tq_start_time);
-#endif
+#endif  /* #if NEST */
 }
 
-/* Stop timing, and print the time since the last tq_start. */
+/* Stop timing, and print the time since the last tq_start with msg. */
 static void tq_stop(char *msg) {
         static struct timespec end_time;
         static double elapsed_time;
@@ -76,7 +81,7 @@ static void tq_stop(char *msg) {
         struct tq_node *old_top = tq_stack;
         tq_stack = tq_stack->next;
         free(old_top);
-#endif
+#endif  /* if NEST */
 
         clock_gettime(CLOCK_REALTIME, &end_time);
         elapsed_time = (end_time.tv_nsec - tq_start_time.tv_nsec)
@@ -105,4 +110,5 @@ static void tq_stop(char *msg) {
         printf("%s: %f%s\n", msg, elapsed_time, units);
 }
 
-#endif
+#endif  /* #ifndef TIMEQUICK_H */
+
