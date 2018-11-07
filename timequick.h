@@ -73,7 +73,7 @@ static void tq_stop(char *msg) {
         /* If nesting, pop the stack, and put the start time into
            the global.
          */
-#ifdef NEST
+#if NEST
         assert(tq_stack && "timequick: stack is empty.");
         memcpy(&tq_start_time, &(tq_stack->start_time),
                sizeof(struct timespec));
