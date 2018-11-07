@@ -32,5 +32,13 @@ int main(void) {
         tq_start(NULL);
         sleep(1);
         tq_stop("seconds");
+
+        tq_start("Outer");
+        for (int i = 0; i < 3; ++i) {
+                tq_start("Inner");
+                sleep(1);
+                tq_stop("Inner");
+        }
+        tq_stop("Outer");
 }
 
