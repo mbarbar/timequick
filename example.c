@@ -43,3 +43,18 @@ int main(void) {
         tq_stop("Outer");
 }
 
+/*
+Example output:
+
+default: 1.000373s
+milliseconds: 1000.210931ms
+microseconds: 1000192.322000us
+nanoseconds: 1000096228.000000ns
+seconds: 1.000321s
+Inner: 1.000076s
+Inner: 1.000406s
+Inner: 1.000836s
+Outer: 3.001339s
+
+*/
+

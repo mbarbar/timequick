@@ -14,7 +14,7 @@ The `msg` parameter of `tq_start` has no functionality, but can be used for read
 Nesting is possible, and works like matching or balancing parentheses.
 `tq_set_unit` can be used to set the unit in the output (this does not affect the timing resolution).
 
-An example of usage is available in `example.c`.
+An example of usage is available in `example.c`, followed by its output.
 
 ## Requirements
 
