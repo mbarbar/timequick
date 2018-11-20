@@ -52,9 +52,9 @@ static void tq_set_unit(enum tq_unit unit) {
 /* Start timing. The next tq_stop will match the latest tq_start, like
    matching parentheses. msg is ignored, and only for user's readability.
  */
-static void tq_start(char *msg) {
+static void tq_start(char const *msg) {
 #if NEST
-        struct tq_node *new_node = malloc(sizeof(struct tq_node));
+        struct tq_node *new_node = (struct tq_node *)malloc(sizeof(struct tq_node));
         assert(new_node && "timequick: malloc failed.");
 
         clock_gettime(CLOCK_REALTIME, &(new_node->start_time));
@@ -67,10 +67,10 @@ static void tq_start(char *msg) {
 }
 
 /* Stop timing, and print the time since the last tq_start with msg. */
-static void tq_stop(char *msg) {
+static void tq_stop(char const *msg) {
         static struct timespec end_time;
         static double elapsed_time;
-        static char *unit = "s";
+        static char const *unit = "s";
 
         /* If nesting, pop the stack, and put the start time into
            the global.
