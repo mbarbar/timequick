@@ -3,10 +3,10 @@
    run some quick tests.
  */
 
+#include "timequick.h"
+
 #include <stdlib.h>
 #include <unistd.h>
-
-#include "timequick.h"
 
 int main(void) {
         tq_start(NULL);
