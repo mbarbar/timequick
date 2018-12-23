@@ -46,15 +46,15 @@ int main(void) {
 /*
 Example output:
 
-default: 1.000373s
-milliseconds: 1000.210931ms
-microseconds: 1000192.322000us
-nanoseconds: 1000096228.000000ns
-seconds: 1.000321s
-Inner: 1.000076s
-Inner: 1.000406s
-Inner: 1.000836s
-Outer: 3.001339s
+tq_stop: default: 1.000173s
+tq_stop: milliseconds: 1000.119064ms
+tq_stop: microseconds: 1000115.943000us
+tq_stop: nanoseconds: 1000069660.000000ns
+tq_stop: seconds: 1.000099s
+tq_stop: Inner: 1.000074s
+tq_stop: Inner: 1.000073s
+tq_stop: Inner: 1.000103s
+tq_stop: Outer: 3.000333s
 
 */
 
