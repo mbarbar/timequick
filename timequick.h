@@ -110,7 +110,8 @@ static void tq_stop(char const *msg) {
                 /* elapsed_time is already sorted. */
         }
 
-        printf("tq_stop: %s: %f%s\n", msg, elapsed_time, unit);
+        /* Newline at the start to ensure it has it's own line. */
+        printf("\ntq_stop: %s: %f%s\n", msg, elapsed_time, unit);
 }
 
 #endif  /* #ifndef TIMEQUICK_H */
