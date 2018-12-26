@@ -45,13 +45,14 @@ if __name__ == "__main__":
             else:
                 print("Bad format? '{}'".format(line))
 
-    print("===== timequick stats for file '{}' =====\n".format(infile))
+    print("\n===== timequick: '{}' =====".format(infile))
     for label in labels:
         totals = labels[label]
+        print("")
         print(" {}: ".format(label))
         print("   Total time taken  : {}".format(totals[0]))
         print("   Frequency         : {}".format(totals[1]))
         print("   Average time taken: {}".format(float(totals[0]) / totals[1]))
-    print("\n===== timequick stats done =====".format(infile))
+    print("\n===== timequick stats done =====\n".format(infile))
 
 
