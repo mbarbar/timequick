@@ -14,6 +14,7 @@ LABEL_TIME_SPLIT_RE = re.compile("(.*): (\d+(\.\d+)?)([a-z][a-z]?)")
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("usage: {} filename".format(sys.argv[0]))
+        sys.exit(1)
 
     # "tq_stop label" --> (total time, frequency)
     labels = {}
