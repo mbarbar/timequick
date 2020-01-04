@@ -44,7 +44,9 @@ if __name__ == "__main__":
                     labels[label] = (float(time), 1)
 
             else:
-                print("Bad format? '{}'".format(line))
+                # TODO: Maybe output as an option?
+                # print("Bad format? '{}'".format(line))
+                pass
 
     print("\n===== timequick: '{}' =====".format(infile))
     for label in labels:
