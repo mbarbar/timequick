@@ -1,4 +1,4 @@
-#~/usr/bin/python
+#!/usr/bin/python
 
 # Parses timequick output and prints some stats.
 # TODO: currently expects all times in the file
