@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     infile = sys.argv[1]
     with open(infile, "r") as inf:
-        for line in inf.readlines():
+        for line in inf:
             if not line.startswith(TQ_STOP_PREFIX):
                 continue
 
