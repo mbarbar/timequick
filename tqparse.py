@@ -3,7 +3,7 @@
 # Parses timequick output and prints some stats.
 # TODO: currently expects all times in the file
 # to be of the same unit.
-# usage: ./tq_parse.sh filename
+# usage: ./tqparse.sh filename
 
 import re
 import sys
